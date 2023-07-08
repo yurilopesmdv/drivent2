@@ -4,6 +4,6 @@ import { getAllTickets, getTicket } from '../controllers/tickets-controller';
 
 const ticketRouter = Router();
 
-ticketRouter.use(authenticateToken).get('/types', getAllTickets).get('/', authenticateToken, getTicket).post('/');
+ticketRouter.all('/*', authenticateToken).get('/types', getAllTickets).get('/', getTicket).post('/');
 
 export { ticketRouter };

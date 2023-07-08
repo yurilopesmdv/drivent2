@@ -14,14 +14,11 @@ export async function getAllTickets(req: AuthenticatedRequest, res: Response) {
 }
 
 export async function getTicket(req: AuthenticatedRequest, res: Response) {
-  const userId = req.userId;
+  const { userId } = req;
   try {
     const ticket = await ticketService.getTicketById(userId);
     return res.status(httpStatus.OK).send(ticket);
   } catch (error) {
-    if (error.name === 'NotFoundError') {
-      return res.status(httpStatus.NOT_FOUND).send(error.message);
-    }
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    return res.status(httpStatus.NOT_FOUND).send(error.message);
   }
 }
