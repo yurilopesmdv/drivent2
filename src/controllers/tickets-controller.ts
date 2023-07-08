@@ -6,7 +6,6 @@ import ticketService from '../services/tickets-service/index';
 export async function getAllTickets(req: AuthenticatedRequest, res: Response) {
   try {
     const tickets = await ticketService.getAllTickets();
-    if (!tickets) return res.status(httpStatus.OK).send([]);
     return res.status(httpStatus.OK).send(tickets);
   } catch (error) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
