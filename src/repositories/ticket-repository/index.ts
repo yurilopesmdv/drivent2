@@ -1,3 +1,4 @@
+import { Ticket } from '@prisma/client';
 import { prisma } from '../../config/database';
 
 async function findAllTickets() {
@@ -14,10 +15,20 @@ async function findTicketByEnrollmentId(enrollmentId: number) {
     },
   });
 }
+export type CreateTicket = Omit<Ticket, 'id' | 'createdAt' | 'updatedAt'>;
+
+async function postTicket(ticketData: CreateTicket) {
+  return prisma.ticket.create({
+    data: {
+      ...ticketData,
+    },
+  });
+}
 
 const ticketRepository = {
   findAllTickets,
   findTicketByEnrollmentId,
+  postTicket,
 };
 
 export default ticketRepository;
